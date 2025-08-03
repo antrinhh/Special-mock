@@ -1,2 +1,0 @@
-src-git packages https://git.openwrt.org/feed/packages.git^de909258525bdb3e227c8e6fc1b61329e9a11f62
-src-link custompackages /mock-data
