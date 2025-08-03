@@ -11,6 +11,6 @@ WORKDIR /src
 
 RUN git clone https://git.openwrt.org/openwrt/openwrt.git
 
-WORKDIR /src/openwrt
+WORKDIR /
 
 CMD [ "/bin/bash" ]
