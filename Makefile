@@ -1,8 +1,9 @@
+ROOT_DIR = /home/antrinh/mock
 IMAGE_NAME = openwrt-image
 CONTAINER_NAME = openwrt-build
-MOCK_DATA_DIR = /home/antrinh/mock/package-dev/mock-data
-OUTPUT_DIR = /home/antrinh/mock/output
-PKG_OUTPUT = home/antrinh/mock/package-output
+MOCK_DATA_DIR = $(PWD)/mock-data
+OUTPUT_DIR = $(ROOT_DIR)/output
+PKG_OUTPUT = $(ROOT_DIR)/package-output
 
 .PHONY: docker-image build clean
 
@@ -14,17 +15,13 @@ create:
 	docker create -it --name $(CONTAINER_NAME) \
 		-v $(MOCK_DATA_DIR):/mock-data \
 		-v $(OUTPUT_DIR):/src/openwrt/bin \
-		-v $(PKG_OUTPUT):/src/pkg-output
-		$(IMAGE_NAME)
+		-v $(PKG_OUTPUT):/src/pkg-output \
+		$(IMAGE_NAME) bash
 
 build:
 	docker start $(CONTAINER_NAME)
 	docker exec -it $(CONTAINER_NAME) bash -c "\
 			cd /src/openwrt && \
-			sed -i '/telephony/d' feeds.conf.default && \
-			sed -i '/video/d' feeds.conf.default && \
-			sed -i '/routing/d' feeds.conf.default && \
-			sed -i '/luci/d' feeds.conf.default && \
 			sed -i '/custompackages/d' feeds.conf.default && \
 			echo 'src-link custompackages /mock-data' >> feeds.conf.default && \
 			./scripts/feeds update -a && \
