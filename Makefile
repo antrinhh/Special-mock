@@ -1,7 +1,7 @@
-ROOT_DIR = /home/antrinh/mock
+ROOT_DIR = $(abspath $(dir $(CURDIR))..)
 IMAGE_NAME = openwrt-image
 CONTAINER_NAME = openwrt-build
-MOCK_DATA_DIR = $(PWD)/mock-data
+MOCK_DATA_DIR = $(CURDIR)/mock-data
 OUTPUT_DIR = $(ROOT_DIR)/output
 PKG_OUTPUT = $(ROOT_DIR)/package-output
 
