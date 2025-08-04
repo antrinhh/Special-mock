@@ -26,7 +26,7 @@ build:
 			echo 'src-link custompackages /mock-data' >> feeds.conf.default && \
 			./scripts/feeds update -a && \
 			./scripts/feeds install -a && \
-			cp /mock-data/.config .config && \
+			sed -i 's|#CONFIG_PACKAGE_python-check is not set|CONFIG_PACKAGE_python-check=y|' .config && \
 			make -j8 \
 		"
 
